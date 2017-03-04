@@ -66,7 +66,7 @@ public class BackgroundCommunication extends Thread
                 if(p != null)
                 {
                     trajSeries.getData().add(new XYChart.Data<Number, Number>(p[0], p[1]));
-                    trajSeriesConsigne.getData().add(new XYChart.Data<Number, Number>(p[0], Math.sqrt(curveValue - p[0]*p[0])));
+                    trajSeriesConsigne.getData().add(new XYChart.Data<Number, Number>(p[0], Math.sqrt(curveValue - (p[0]-curveValue)*(p[0]-curveValue))));
                 }
                 else
                 {
@@ -122,6 +122,13 @@ public class BackgroundCommunication extends Thread
         this.left_graph = left;
         this.right_graph = right;
         this.traj_graph = traj;
+
+        traj_graph.getXAxis().setAutoRanging(false);
+        traj_graph.getYAxis().setAutoRanging(false);
+        ((NumberAxis)traj_graph.getXAxis()).setUpperBound(1000);
+        ((NumberAxis)traj_graph.getXAxis()).setLowerBound(-1000);
+        ((NumberAxis)traj_graph.getYAxis()).setUpperBound(1200);
+        ((NumberAxis)traj_graph.getYAxis()).setLowerBound(0);
     }
 
     private void startSpeedPrinting()

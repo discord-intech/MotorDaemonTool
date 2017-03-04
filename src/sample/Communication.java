@@ -177,6 +177,6 @@ public class Communication
 
     public void setPosition(double x, double y)
     {
-        send("setpos "+x+" "+y);
+        send("setpos "+Integer.toString((int)x)+" "+Integer.toString((int)y));
     }
 }

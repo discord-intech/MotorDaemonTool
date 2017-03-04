@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.ScatterChart?>
@@ -13,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <LineChart fx:id="left_graph" layoutX="14.0" layoutY="14.0" prefHeight="232.0" prefWidth="410.0">
+      <LineChart fx:id="left_graph" layoutX="14.0" layoutY="14.0" legendVisible="false" prefHeight="232.0" prefWidth="410.0">
         <xAxis>
           <NumberAxis side="BOTTOM" />
         </xAxis>
@@ -21,7 +20,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="right_graph" layoutX="424.0" layoutY="14.0" prefHeight="232.0" prefWidth="410.0">
+      <LineChart fx:id="right_graph" layoutX="424.0" layoutY="14.0" legendVisible="false" prefHeight="232.0" prefWidth="410.0">
          <xAxis>
             <NumberAxis side="BOTTOM" />
          </xAxis>
@@ -32,7 +31,7 @@
       <TextField fx:id="ip_field" alignment="CENTER" layoutX="24.0" layoutY="268.0" promptText="MotorDaemon IP" />
       <Button fx:id="connect_buton" layoutX="207.0" layoutY="268.0" mnemonicParsing="false" onMouseClicked="#onConnect" text="Connect" />
       <Button fx:id="speed_test_button" disable="true" layoutX="52.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#onTestSpeed" text="Speed Test" />
-      <ScatterChart fx:id="traj_graph" layoutX="379.0" layoutY="246.0" prefHeight="330.0" prefWidth="480.0">
+      <ScatterChart fx:id="traj_graph" layoutX="379.0" layoutY="275.0" legendVisible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0">
         <xAxis>
           <NumberAxis side="BOTTOM" />
         </xAxis>
@@ -64,7 +63,7 @@
       <Label fx:id="curve_info" layoutX="199.0" layoutY="395.0" text="Curve (mm) : 0" />
       <Label layoutX="191.0" layoutY="230.0" text="Left Speed" />
       <Label layoutX="623.0" layoutY="230.0" text="Right Speed" />
-      <Label layoutX="596.0" layoutY="568.0" text="Trajectory" />
+      <Label layoutX="615.0" layoutY="568.0" text="Trajectory" />
       <TextField fx:id="ksrp" layoutX="52.0" layoutY="457.0" prefHeight="26.0" prefWidth="62.0">
          <font>
             <Font size="11.0" />
