@@ -15,7 +15,7 @@
    <children>
       <LineChart fx:id="left_graph" layoutX="14.0" layoutY="14.0" prefHeight="232.0" prefWidth="410.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <NumberAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />
@@ -23,7 +23,7 @@
       </LineChart>
       <LineChart fx:id="right_graph" layoutX="424.0" layoutY="14.0" prefHeight="232.0" prefWidth="410.0">
          <xAxis>
-            <CategoryAxis side="BOTTOM" />
+            <NumberAxis side="BOTTOM" />
          </xAxis>
          <yAxis>
             <NumberAxis side="LEFT" />
@@ -34,7 +34,7 @@
       <Button fx:id="speed_test_button" disable="true" layoutX="52.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#onTestSpeed" text="Speed Test" />
       <ScatterChart fx:id="traj_graph" layoutX="379.0" layoutY="246.0" prefHeight="330.0" prefWidth="480.0">
         <xAxis>
-          <CategoryAxis side="BOTTOM" />
+          <NumberAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />
@@ -60,7 +60,7 @@
       <Label layoutX="130.0" layoutY="530.0" text="Kci" />
       <Label layoutX="239.0" layoutY="526.0" text="Kcd" />
       <Button fx:id="set_const_button" disable="true" layoutX="142.0" layoutY="563.0" mnemonicParsing="false" onMouseClicked="#onSetConstants" text="Set constants" />
-      <Slider fx:id="curve_slider" layoutX="197.0" layoutY="367.0" max="1000.0" min="-1000.0" onMouseReleased="#setCurve" />
+      <Slider fx:id="curve_slider" layoutX="197.0" layoutY="367.0" max="3000.0" min="-3000.0" onMouseReleased="#setCurve" />
       <Label fx:id="curve_info" layoutX="199.0" layoutY="395.0" text="Curve (mm) : 0" />
       <Label layoutX="191.0" layoutY="230.0" text="Left Speed" />
       <Label layoutX="623.0" layoutY="230.0" text="Right Speed" />

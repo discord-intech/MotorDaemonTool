@@ -102,7 +102,7 @@ public class Communication
 
             for(int i=0 ; i<numberOfLines ; i++)
             {
-                out[i] = iss.readLine();
+                out[i] = iss.readLine().replace("\0","");
                 Thread.sleep(20);
             }
 

@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class Controller
 {
     @FXML
-    private LineChart<?, ?> left_graph;
+    private LineChart<Number, Number> left_graph;
 
     @FXML
-    private LineChart<?, ?> right_graph;
+    private LineChart<Number, Number> right_graph;
 
     @FXML
     private TextField ip_field;
@@ -29,7 +29,7 @@ public class Controller
     private Button speed_test_button;
 
     @FXML
-    private ScatterChart<?, ?> traj_graph;
+    private ScatterChart<Number, Number> traj_graph;
 
     @FXML
     private Slider speed_slider;
@@ -157,9 +157,8 @@ public class Controller
 
         control.setPosition(0,0);
         control.send("sets "+speed_slider.getValue());
-        //TODO set curve
+        control.send("cr "+curve_slider.getValue());
         control.send("d 400");
-        Thread.sleep(100);
         background.curveSet((int)curve_slider.getValue());
         background.launchPrinting(true);
     }
@@ -169,8 +168,8 @@ public class Controller
     {
         if(!connected) return;
 
+        control.send("sets "+speed_slider.getValue());
         control.send("ts "+speed_slider.getValue());
-        Thread.sleep(100);
         background.launchPrinting(false);
     }
 

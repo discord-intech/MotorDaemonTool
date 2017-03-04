@@ -35,18 +35,19 @@ public class BackgroundCommunication extends Thread
     private LineChart<Number, Number> right_graph;
     private ScatterChart<Number, Number> traj_graph;
 
-    private XYChart.Series leftSeries = new XYChart.Series();
-    private XYChart.Series rightSeries = new XYChart.Series();
-    private XYChart.Series trajSeries = new XYChart.Series();
-    private XYChart.Series leftSeriesConsigne = new XYChart.Series();
-    private XYChart.Series rightSeriesConsigne = new XYChart.Series();
-    private XYChart.Series trajSeriesConsigne = new XYChart.Series();
+    private XYChart.Series<Number, Number> leftSeries = new XYChart.Series<Number, Number>();
+    private XYChart.Series<Number, Number> rightSeries = new XYChart.Series<Number, Number>();
+    private XYChart.Series<Number, Number> trajSeries = new XYChart.Series<Number, Number>();
+    private XYChart.Series<Number, Number> leftSeriesConsigne = new XYChart.Series<Number, Number>();
+    private XYChart.Series<Number, Number> rightSeriesConsigne = new XYChart.Series<Number, Number>();
+    private XYChart.Series<Number, Number> trajSeriesConsigne = new XYChart.Series<Number, Number>();
 
     private boolean speedPrinting = false;
     private boolean curvePrinting = false;
     private boolean go = false;
 
     private int curveValue = 0;
+    private long startTime = -1;
 
     public static BackgroundCommunication getInstance()
     {
@@ -64,8 +65,12 @@ public class BackgroundCommunication extends Thread
                 Double[] p = control.getPosition();
                 if(p != null)
                 {
-                    trajSeries.getData().add(new XYChart.Data(p[0], p[1]));
-                    trajSeriesConsigne.getData().add(new XYChart.Data(p[0], 0/*TODO y val calc*/));
+                    trajSeries.getData().add(new XYChart.Data<Number, Number>(p[0], p[1]));
+                    trajSeriesConsigne.getData().add(new XYChart.Data<Number, Number>(p[0], Math.sqrt(curveValue - p[0]*p[0])));
+                }
+                else
+                {
+                    System.err.println("Did not receive response to p");
                 }
             }
 
@@ -74,10 +79,16 @@ public class BackgroundCommunication extends Thread
                 Long[] sv = control.getSpeedValues();
                 if(sv != null)
                 {
-                    leftSeries.getData().add(new XYChart.Data(sv[0],sv[2]));
-                    leftSeriesConsigne.getData().add(new XYChart.Data(sv[0],sv[1]));
-                    rightSeries.getData().add(new XYChart.Data(sv[0],sv[4]));
-                    rightSeriesConsigne.getData().add(new XYChart.Data(sv[0],sv[3]));
+                    if(startTime < 0) startTime = sv[0];
+
+                    leftSeries.getData().add(new XYChart.Data<Number, Number>(sv[0]-startTime,sv[2]));
+                    leftSeriesConsigne.getData().add(new XYChart.Data<Number, Number>(sv[0]-startTime,sv[1]));
+                    rightSeries.getData().add(new XYChart.Data<Number, Number>(sv[0]-startTime,sv[4]));
+                    rightSeriesConsigne.getData().add(new XYChart.Data<Number, Number>(sv[0]-startTime,sv[3]));
+                }
+                else
+                {
+                    System.err.println("Did not receive response to sv");
                 }
             }
 
@@ -85,6 +96,7 @@ public class BackgroundCommunication extends Thread
             {
                 if(!control.isMoving())
                 {
+
                     go = false;
                     if(curvePrinting) stopCurvePrinting();
                     else if(speedPrinting) stopSpeedPrinting();
@@ -93,7 +105,7 @@ public class BackgroundCommunication extends Thread
 
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(70);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -105,25 +117,26 @@ public class BackgroundCommunication extends Thread
         this.motordaemonIsOnline = state;
     }
 
-    public void setGraphs(LineChart<?, ?> left, LineChart<?, ?> right, ScatterChart<?, ?> traj)
+    public void setGraphs(LineChart<Number, Number> left, LineChart<Number, Number> right, ScatterChart<Number, Number> traj)
     {
-        this.left_graph = (LineChart<Number, Number>) left;
-        this.right_graph = (LineChart<Number, Number>) right;
-        this.traj_graph = (ScatterChart<Number, Number>) traj;
+        this.left_graph = left;
+        this.right_graph = right;
+        this.traj_graph = traj;
     }
 
     private void startSpeedPrinting()
     {
-        leftSeries = new XYChart.Series();
-        rightSeries = new XYChart.Series();
-        leftSeriesConsigne = new XYChart.Series();
-        rightSeriesConsigne = new XYChart.Series();
+        leftSeries = new XYChart.Series<Number, Number>();
+        rightSeries = new XYChart.Series<Number, Number>();
+        leftSeriesConsigne = new XYChart.Series<Number, Number>();
+        rightSeriesConsigne = new XYChart.Series<Number, Number>();
         speedPrinting = true;
     }
 
     private void stopSpeedPrinting()
     {
         speedPrinting = false;
+        startTime = -1;
         Platform.runLater(() -> {
             traj_graph.getData().clear();
             left_graph.getData().clear();
@@ -137,12 +150,12 @@ public class BackgroundCommunication extends Thread
 
     private void startCurvePrinting()
     {
-        leftSeries = new XYChart.Series();
-        rightSeries = new XYChart.Series();
-        leftSeriesConsigne = new XYChart.Series();
-        rightSeriesConsigne = new XYChart.Series();
-        trajSeries = new XYChart.Series();
-        trajSeriesConsigne = new XYChart.Series();
+        leftSeries = new XYChart.Series<Number, Number>();
+        rightSeries = new XYChart.Series<Number, Number>();
+        leftSeriesConsigne = new XYChart.Series<Number, Number>();
+        rightSeriesConsigne = new XYChart.Series<Number, Number>();
+        trajSeries = new XYChart.Series<Number, Number>();
+        trajSeriesConsigne = new XYChart.Series<Number, Number>();
         speedPrinting = true;
         curvePrinting = true;
     }
@@ -151,6 +164,7 @@ public class BackgroundCommunication extends Thread
     {
         speedPrinting = false;
         curvePrinting = false;
+        startTime = -1;
         Platform.runLater(() -> {
             left_graph.getData().clear();
             left_graph.getData().add(leftSeries);
@@ -173,7 +187,7 @@ public class BackgroundCommunication extends Thread
     public void launchPrinting(boolean curve)
     {
         if(curve) startCurvePrinting();
-        else stopSpeedPrinting();
+        else startSpeedPrinting();
         go = true;
     }
 }
