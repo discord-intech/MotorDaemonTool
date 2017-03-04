@@ -174,4 +174,9 @@ public class Communication
         return lines != null && lines[0].contains("1");
 
     }
+
+    public void setPosition(double x, double y)
+    {
+        send("setpos "+x+" "+y);
+    }
 }

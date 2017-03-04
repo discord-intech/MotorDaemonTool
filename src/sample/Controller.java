@@ -144,7 +144,10 @@ public class Controller
     {
         if(!connected) return;
 
-        //TODO calls to setksg, setksd, setktd and setkcd
+        control.send("setksg "+kslp.getText()+" "+ksli.getText()+" "+ksld.getText());
+        control.send("setksd "+ksrp.getText()+" "+ksri.getText()+" "+ksrd.getText());
+        control.send("setktd "+ktp.getText()+" "+kti.getText()+" "+ktd.getText());
+        control.send("setkcd "+kcp.getText()+" "+kci.getText()+" "+kcd.getText());
     }
 
     @FXML
@@ -152,7 +155,10 @@ public class Controller
     {
         if(!connected) return;
 
-        //TODO curve test (set speed + set curve + d 400)
+        control.setPosition(0,0);
+        control.send("sets "+speed_slider.getValue());
+        //TODO set curve
+        control.send("d 400");
         Thread.sleep(100);
         background.curveSet((int)curve_slider.getValue());
         background.launchPrinting(true);
@@ -162,6 +168,7 @@ public class Controller
     void onTestSpeed(MouseEvent event) throws InterruptedException
     {
         if(!connected) return;
+
         control.send("ts "+speed_slider.getValue());
         Thread.sleep(100);
         background.launchPrinting(false);
