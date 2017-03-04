@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <LineChart fx:id="left_graph" layoutX="14.0" layoutY="14.0" prefHeight="232.0" prefWidth="410.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <LineChart fx:id="right_graph" layoutX="424.0" layoutY="14.0" prefHeight="232.0" prefWidth="410.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <TextField fx:id="ip_field" alignment="CENTER" layoutX="24.0" layoutY="268.0" promptText="MotorDaemon IP" />
+      <Button fx:id="connect_buton" layoutX="207.0" layoutY="268.0" mnemonicParsing="false" onMouseClicked="#onConnect" text="Connect" />
+      <Button fx:id="speed_test_button" disable="true" layoutX="52.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#onTestSpeed" text="Speed Test" />
+      <ScatterChart fx:id="traj_graph" layoutX="379.0" layoutY="246.0" prefHeight="330.0" prefWidth="480.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </ScatterChart>
+      <Slider fx:id="speed_slider" layoutX="197.0" layoutY="311.0" max="2500.0" min="1000.0" onMouseReleased="#setSpeed" value="1500.0" />
+      <Label fx:id="speed_info" layoutX="199.0" layoutY="338.0" text="Speed : 1500" />
+      <Button fx:id="curve_test_button" disable="true" layoutX="53.0" layoutY="362.0" mnemonicParsing="false" onMouseClicked="#onTestCurve" text="Curve Test" />
+      <TextField fx:id="kslp" layoutX="52.0" layoutY="425.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font></TextField>
+      <Label layoutX="14.0" layoutY="428.0" text="Kslp" />
+      <Label layoutX="130.0" layoutY="432.0" text="Ksli" />
+      <Label layoutX="239.0" layoutY="428.0" text="Ksld" />
+      <Label layoutX="14.0" layoutY="460.0" text="Ksrp" />
+      <Label layoutX="130.0" layoutY="464.0" text="Ksri" />
+      <Label layoutX="239.0" layoutY="460.0" text="Ksrd" />
+      <Label layoutX="14.0" layoutY="492.0" text="Ktp" />
+      <Label layoutX="130.0" layoutY="496.0" text="Kti" />
+      <Label layoutX="239.0" layoutY="492.0" text="Ktd" />
+      <Label layoutX="14.0" layoutY="526.0" text="Kcp" />
+      <Label layoutX="130.0" layoutY="530.0" text="Kci" />
+      <Label layoutX="239.0" layoutY="526.0" text="Kcd" />
+      <Button fx:id="set_const_button" disable="true" layoutX="142.0" layoutY="563.0" mnemonicParsing="false" onMouseClicked="#onSetConstants" text="Set constants" />
+      <Slider fx:id="curve_slider" layoutX="197.0" layoutY="367.0" max="1000.0" min="-1000.0" onMouseReleased="#setCurve" />
+      <Label fx:id="curve_info" layoutX="199.0" layoutY="395.0" text="Curve (mm) : 0" />
+      <Label layoutX="191.0" layoutY="230.0" text="Left Speed" />
+      <Label layoutX="623.0" layoutY="230.0" text="Right Speed" />
+      <Label layoutX="596.0" layoutY="568.0" text="Trajectory" />
+      <TextField fx:id="ksrp" layoutX="52.0" layoutY="457.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ktp" layoutX="52.0" layoutY="489.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="kcp" layoutX="52.0" layoutY="523.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ksli" layoutX="160.0" layoutY="425.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ksri" layoutX="160.0" layoutY="457.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="kti" layoutX="160.0" layoutY="489.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="kci" layoutX="160.0" layoutY="523.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ksld" layoutX="273.0" layoutY="425.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ksrd" layoutX="273.0" layoutY="457.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="ktd" layoutX="273.0" layoutY="489.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="kcd" layoutX="273.0" layoutY="523.0" prefHeight="26.0" prefWidth="62.0">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>
