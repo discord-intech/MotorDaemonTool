@@ -66,7 +66,7 @@ public class BackgroundCommunication extends Thread
                 if(p != null)
                 {
                     trajSeries.getData().add(new XYChart.Data<Number, Number>(p[0], p[1]));
-                    trajSeriesConsigne.getData().add(new XYChart.Data<Number, Number>(p[0], Math.sqrt(curveValue - (p[0]-curveValue)*(p[0]-curveValue))));
+                    trajSeriesConsigne.getData().add(new XYChart.Data<Number, Number>(p[0], curveValue+Math.sqrt(Math.abs(curveValue - (p[0])*(p[0])))));
                 }
                 else
                 {

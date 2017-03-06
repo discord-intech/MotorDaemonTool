@@ -179,4 +179,9 @@ public class Communication
     {
         send("setpos "+Integer.toString((int)x)+" "+Integer.toString((int)y));
     }
+
+    public void setAngle(double o)
+    {
+        send("setang "+Float.toString((float)o));
+    }
 }

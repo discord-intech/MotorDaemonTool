@@ -156,9 +156,10 @@ public class Controller
         if(!connected) return;
 
         control.setPosition(0,0);
+        control.setAngle(0);
         control.send("sets "+speed_slider.getValue());
         control.send("cr "+curve_slider.getValue());
-        control.send("d 400");
+        control.send("d 600");
         background.curveSet((int)curve_slider.getValue());
         background.launchPrinting(true);
     }
