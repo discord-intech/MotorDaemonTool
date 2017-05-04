@@ -79,7 +79,7 @@ public class Communication
         //System.out.println(s);
 
         try {
-            byte[] r = Arrays.copyOfRange(s.getBytes(), 0, 1024);
+            byte[] r = Arrays.copyOfRange(s.getBytes(), 0, 65536);
 
             oos.write(r);
             oos.flush();
